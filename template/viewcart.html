@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f4f6f9;
+    }
+
+    .order-container {
+        max-width: 900px;
+        margin: 30px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .order-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .order-header h1 {
+        font-size: 32px;
+        font-weight: bold;
+        color: #28a745;
+    }
+
+    .order-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .order-item:last-child {
+        border-bottom: none;
+    }
+
+    .order-item img {
+        width: 80px;
+        height: 100px;
+        border-radius: 8px;
+        object-fit: cover;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .order-item-details {
+        flex-grow: 1;
+        margin-left: 20px;
+    }
+
+    .order-item-details h2 {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .order-item-details p {
+        margin: 5px 0;
+        font-size: 14px;
+        color: #777;
+    }
+
+    .quantity-controls {
+        display: flex;
+        align-items: center;
+    }
+
+    .quantity-controls a {
+        background-color: #28a745;
+        color: white;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 0 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .quantity-controls a:hover {
+        background-color: #218838;
+    }
+
+    .quantity-display {
+        width: 40px;
+        text-align: center;
+        font-size: 16px;
+        margin: 0 10px;
+    }
+
+    .order-item-price {
+        text-align: right;
+        font-size: 16px;
+        font-weight: bold;
+        color: #555;
+    }
+
+    .grand-total {
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        margin: 20px 0;
+        color: #28a745;
+    }
+
+    .order-now-btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #28a745;
+        color: #ffffff;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.3s ease, box-shadow 0.2s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .order-now-btn:hover {
+        background-color: #218838;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .empty-cart h2 {
+        text-align: center;
+        font-size: 24px;
+        color: #888;
+        margin: 30px 0;
+    }
+</style>
+
+<div class="order-container">
+    <div class="order-header">
+        <h1>Your Cart</h1>
+        <p>Review your selected items before placing the order.</p>
+    </div>
+
+    {% if cartitems %}
+        {% for i in cartitems %}
+        <div class="order-item">
+            <img src="{{ i.item.images.url }}" alt="Product Image">
+            <div class="order-item-details">
+                <h2>{{ i.item.name }}</h2>
+                <p>Price: ₹{{ i.item.price }}</p>
+                <div class="quantity-controls">
+                    <!-- Decrement button -->
+                    <a href="{% url 'Cartapp:remove_from_cart' i.item.id %}">-</a>
+                    <!-- Display current quantity -->
+                    <div class="quantity-display">{{ i.quantity }}</div>
+                    <!-- Increment button -->
+                    <a href="{% url 'Cartapp:add_to_cart' i.item.id %}">+</a>
+                </div>
+            </div>
+            <div class="order-item-price">
+                ₹{{ i.item.price|floatformat:2 }} × {{ i.quantity }}
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- Grand Total Section -->
+        <div class="grand-total">
+            Grand Total: ₹{{ total_price }}
+        </div>
+
+        <!-- Order Now Button -->
+        <div style="text-align: center;">
+            <a href="{% url 'create_order' %}" class="order-now-btn">Place Your Order</a>
+        </div>
+    {% else %}
+        <div class="empty-cart">
+            <h2>Your cart is empty! 🛒</h2>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

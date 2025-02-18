@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Profile - Grocery Store</title>
+{% endblock %}
+
+{% block content %}
+<style>
+    /* General Reset */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        background-color: #f4f4f4;
+        line-height: 1.6;
+    }
+
+    /* Header */
+    header {
+        color: #4CAF50;
+        padding: 1rem;
+        text-align: center;
+        font-size: 1.5rem;
+        background-color: #e8f5e9;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Container */
+    .container {
+        max-width: 800px;
+        margin: 2rem auto;
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    /* User Details */
+    .user-details {
+        margin-bottom: 2rem;
+    }
+
+    .user-details h2 {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+        color: #333;
+        border-bottom: 1px solid #e0e0e0;
+        padding-bottom: 0.5rem;
+    }
+
+    .user-details span {
+        font-weight: bold;
+        color: #4CAF50;
+    }
+
+    /* Buttons */
+    .action-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .action-buttons a {
+        display: inline-block;
+        text-decoration: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        font-size: 14px;
+        color: white;
+        transition: all 0.3s ease;
+    }
+
+    .logout-btn {
+        background-color: #ff4d4d;
+    }
+
+    .logout-btn:hover {
+        background-color: #cc0000;
+        transform: scale(1.05);
+    }
+
+    .update-btn {
+        background-color: #4CAF50;
+    }
+
+    .update-btn:hover {
+        background-color: #388e3c;
+        transform: scale(1.05);
+    }
+</style>
+
+<header>Welcome to Your Profile</header>
+
+<div class="container">
+    <div class="user-details">
+        {% for i in data %}
+        <h2><span>Username:</span> {{ i.username }}</h2>
+        <h2><span>First Name:</span> {{ i.first_name }}</h2>
+        <h2><span>Last Name:</span> {{ i.last_name }}</h2>
+        <h2><span>Email:</span> {{ i.email }}</h2>
+        <h2><span>Phone Number:</span> {{ i.phone_number }}</h2>
+        {% endfor %}
+    </div>
+
+    <div class="action-buttons">
+        <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+        <a href="{% url 'update' user.id %}" class="update-btn">Update Profile</a>
+    </div>
+</div>
+{% endblock %}

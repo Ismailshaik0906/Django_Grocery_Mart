@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    <title>Contact Us | Grocery Store</title>
+{% endblock %}
+
+{% block content %}
+    <div class="contact-container">
+        <div class="contact-header">
+            <h2>Contact Us</h2>
+            <p>We'd love to hear from you! Please reach out with any questions, feedback, or concerns.</p>
+        </div>
+
+        <div class="contact-form">
+            <form action="#" method="POST">
+                {% csrf_token %}
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+                <label for="email">Your Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+                <label for="message">Your Message</label>
+                <textarea id="message" name="message" placeholder="Write your message" required></textarea>
+
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+
+        <div class="contact-details">
+            <div>
+                <h3>Visit Us</h3>
+                <p>123 Grocery Street, Fresh City, 56789</p>
+            </div>
+            <div>
+                <h3>Call Us</h3>
+                <p>+1 (555) 123-4567</p>
+            </div>
+            <div>
+                <h3>Email Us</h3>
+                <p>info@grocerystore.com</p>
+            </div>
+        </div>
+
+        <div class="contact-map">
+            <h3>Find Us on the Map</h3>
+            <!-- Embed Google Map (Replace URL with actual location) -->
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3836.6341012699636!2d78.45632801491332!3d17.385044588161594!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb96c5c7f2a0f3%3A0x234f47370d314040!2sBanjara%20Hills%2C%20Hyderabad%2C%20Telangana%2C%20500034!5e0!3m2!1sen!2sin!4v1666803173771!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>        </div>
+    </div>
+{% endblock %}

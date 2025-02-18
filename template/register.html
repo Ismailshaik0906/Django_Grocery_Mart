@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Register Page</title>
+{% endblock %}
+
+{% block content %}
+<style>
+    /* Reset */
+    body, html {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        height: 110%;
+    }
+
+    /* Background styling */
+    body {
+        
+        background-image: url("{% static 'images/register.jpg' %}");
+        background-size: 100%; /* Changed to cover for better scaling */
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100%;
+        position: relative;
+    }
+
+    /* Overlay to darken the background */
+    body::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%; /* Changed to 100% for full coverage */
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+    }
+
+    /* Center the form */
+    .register-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        z-index: 2;
+        position: relative;
+    }
+
+    /* Form styling */
+    .register-form {
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 20px 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        width: 90%; /* Responsive width */
+        max-width: 400px; /* Max width for larger screens */
+        text-align: center;
+    }
+
+    .register-form h2 {
+        margin-bottom: 1rem;
+        color: #28a745; /* Green color for the header */
+        font-size: 24px; /* Larger font size for the header */
+    }
+
+    .register-form input[type="text"],
+    .register-form input[type="email"],
+    .register-form input[type="password"] {
+        width: 90%;
+        padding: 12px; /* Increased padding for better touch targets */
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 18px; /* Increased font size for inputs */
+    }
+
+    .register-form input[type="submit"] {
+        width: 100%;
+        padding: 12px; /* Increased padding for better touch targets */
+        border: none;
+        border-radius: 5px;
+        background-color: #28a745;
+        color: white;
+        font-size: 18px; /* Increased font size for button */
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .register-form input[type="submit"]:hover {
+        background-color: #218838; /* Darker green on hover */
+    }
+
+    .register-form .login-link {
+        display: block;
+        margin-top: 10px;
+        font-size: 16px; /* Font size for the link */
+        color: #28a745; /* Green color */
+        text-decoration: none;
+    }
+
+    .register-form .login-link:hover {
+        text-decoration: underline; /* Underline on hover */
+    }
+
+    /* Message Styles */
+    .msg {
+        color: red; /* Color for error messages */
+        text-align: center; /* Center the message */
+        margin-bottom: 10px; /* Space below the message */
+        font-size: 16px; /* Font size for messages */
+    }
+</style>
+
+<div class="register-container">
+    <form class="register-form" action="" method="post">
+        {% csrf_token %}
+        <h2>Register</h2>
+        {% if messages %}
+            {% for message in messages %}
+            <div class="msg">
+                {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+        {{ form.as_p }}
+        <input type="submit" value="Register">
+        <a href="{% url 'login' %}" class="login-link">Already have an account? Login here</a>
+    </form>
+</div>
+{% endblock %}

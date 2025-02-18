@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>{{ product.name }}</title>
+{% endblock %}
+
+{% block content %}
+<style>
+.product-detail {
+    border: 1px solid #e2e2e2;
+    border-radius: 10px;
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 900px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.product-detail img {
+    width: 350px;
+    border-radius: 8px;
+    height: 500px;
+    object-fit: cover;
+    margin-right: 30px;
+}
+
+.product-details {
+    max-width: 500px;
+    flex-grow: 1;
+}
+
+.product-detail h2 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #111;
+    margin-bottom: 15px;
+}
+
+.product-detail p {
+    color: #555;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.product-detail .price {
+    font-size: 28px;
+    font-weight: bold;
+    color: #f57c00;
+    margin: 15px 0;
+}
+
+.product-detail .product-buttons {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.product-detail button {
+    background-color: #f0c14b;
+    color: #111;
+    border: 1px solid #a88734;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+    margin-right: 15px;
+    text-align: center;
+}
+
+.product-detail button:hover {
+    background-color: #e2a828;
+    border-color: #9c7e31;
+}
+
+.product-detail button:focus {
+    outline: none;
+}
+
+.product-detail .buy-now {
+    background-color: #007185;
+    color: white;
+    border: 1px solid #00647d;
+}
+
+.product-detail .buy-now:hover {
+    background-color: #005c72;
+    border-color: #004d5b;
+}
+
+.product-detail .product-buttons button:active {
+    transform: scale(0.98);
+}
+
+</style>
+
+<div class="product-detail">
+    <div class="product-header">
+        <img src="{{ data.images.url }}" alt="{{ product.name }}">
+        <div class="product-details">
+            
+            <h2>{{ data.name }}</h2>
+            <p>{{ data.description }}</p>
+            <p><strong>Price:</strong><p class="price">{{ data.price }} INR</p></p>
+            <p><strong>Stock:</strong> {{ data.stock }}</p>
+            <p><strong>Category:</strong> {{ data.category.name }}</p>
+            <div class="product-buttons">
+                <a href="{% url 'Cartapp:add_to_cart'  data.id %}"><button>Add to Cart</button></a>
+                <a href="{% url 'Cartapp:add_to_cart'  data.id %}"><button class="buy-now">Buy Now</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>search_product</title>
+{% endblock %}
+
+{% block content %}
+<style>
+    .product-section {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin: 15px auto;
+        padding: 20px;
+        max-width: 800px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 0.8s ease-in-out; /* Animation */
+    }
+
+    .product-section img {
+        width: 150px;
+        border-radius: 10px;
+        margin-right: 20px;
+        height: 200px;
+    }
+
+    .product-details {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .product-header {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .product-header h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+        color: #000;
+    }
+
+    .product-header p {
+        color: #555;
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+
+    .price {
+        font-size: 18px;
+        font-weight: bold;
+        color: #28a745;
+        margin: 10px 0;
+    }
+
+    .product-buttons {
+        margin-top: 15px;
+    }
+
+    .product-buttons button {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        margin-right: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .product-buttons button:hover {
+        background-color: #207e34;
+        transform: scale(1.05); /* Subtle animation on hover */
+        transition: all 0.2s ease-in-out;
+    }
+
+    .product-buttons .buy-now {
+        background-color: #f0c14b;
+        color: #111;
+    }
+
+    .product-buttons .buy-now:hover {
+        background-color: #d9a930;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    #a{
+        text-decoration: none;
+    }
+</style>
+<div>
+    {% for i in data %}
+    <a href="{% url 'product_info' i.id %}" id="a">
+    <div class="product-section">
+        <div class="product-header">
+           
+            <img src="{{ i.images.url }}" alt="{{ i.name }}" />
+            <div class="product-details">
+                <h3>{{ i.name }}</h3>
+                <p>{{ i.description }}</p>
+                <p class="price">{{ i.price }} INR</p>
+                <div class="product-buttons">
+                    <a href="{% url 'Cartapp:add_to_cart'  i.id %}"><button>Add to Cart</button></a>
+                    <button class="buy-now">Buy Now</button>
+                </div>
+            </div>
+        </div></a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

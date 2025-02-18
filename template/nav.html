@@ -1,0 +1,401 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}
+    <title>Grocery Store</title>
+    {% endblock %}
+    {% block link %}
+    {% endblock %}
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+    
+        nav {
+            background-color: #28a745;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            width: 100%;
+            padding: 10px;
+            z-index: 1000;
+        }
+        nav ul img {
+            height: 50px; /* Adjust the height of the logo as needed */
+            margin-right: 20px; /* Space between logo and menu items */
+            align-self: center; /* Vertically center the logo */
+            display: block; /* Ensures the image behaves correctly in flexbox */
+        }
+
+    
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-between; /* Distribute the space evenly */
+            align-items: center; /* Vertically center the items */
+        }
+    
+        nav ul li {
+            display: flex;
+            align-items: center; /* Align items vertically in each li */
+        }
+        nav ul li a {
+    position: relative;
+    display: inline-block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #ffc107; /* A vibrant color for the text */
+    transform: scale(1.1); /* Slightly enlarges the text */
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #ffc107; /* Matches hover text color */
+    transition: width 0.3s ease, left 0.3s ease;
+}
+
+nav ul li a:hover::after {
+    width: 100%; /* Expands the underline */
+    left: 0; /* Adjusts the underline position */
+}
+
+    
+        nav ul li a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+    
+
+    
+        /* Left and right sections for nav */
+        nav ul .left-links, nav ul .right-links {
+            display: flex;
+            gap: 20px;
+        }
+    
+        nav ul .right-links {
+            margin-left: auto; /* Push right section to the right */
+        }
+    
+        /* Dropdown styles */
+        .dropdown {
+            position: relative;
+        }
+        footer {
+            background-color: #28a745;
+            color: white;
+            padding: 20px 0;
+            margin-top: 20px;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .footer-container div {
+            margin: 10px;
+            text-align: center;
+        }
+
+        .footer-about p, .footer-contact p {
+            margin: 5px 0;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links ul li {
+            margin: 5px 0;
+        }
+
+        .footer-links ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-links ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #207e34;
+            font-size: 14px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+        .contact-container {
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-header h2 {
+        font-size: 32px;
+        color: #333;
+    }
+
+    .contact-header p {
+        color: #555;
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    .contact-form {
+        margin-bottom: 30px;
+    }
+
+    .contact-form label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+    }
+
+    .contact-form input, .contact-form textarea {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    .contact-form textarea {
+        resize: vertical;
+        min-height: 150px;
+    }
+
+    .contact-form button {
+        background-color: #28a745;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        width: 100%;
+    }
+
+    .contact-form button:hover {
+        background-color: #218838;
+    }
+
+    .contact-details {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 40px;
+    }
+
+    .contact-details div {
+        width: 30%;
+    }
+
+    .contact-details h3 {
+        font-size: 20px;
+        color: #333;
+    }
+
+    .contact-details p {
+        color: #555;
+        font-size: 16px;
+    }
+
+    .contact-map iframe {
+        width: 100%;
+        height: 400px;
+        border: 0;
+        border-radius: 8px;
+    }
+    
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            list-style: none;
+            padding: 10px 0;
+            margin: 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            min-width: 250px;
+            opacity: 0; /* Make it invisible by default */
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0s 0.3s;
+        }
+    
+        .dropdown-menu li {
+            margin: 0;
+        }
+    
+        .dropdown-menu li a {
+            color: #333;
+            padding: 10px 20px;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.2s ease, padding-left 0.2s ease;
+        }
+    
+        .dropdown-menu li a:hover {
+            background-color: #f2f2f2;
+            padding-left: 30px; /* Smooth left padding when hovering */
+            color: #28a745;
+        }
+    
+        /* Dropdown visibility */
+        .dropdown:hover .dropdown-menu {
+            display: block;
+            opacity: 1; /* Make it visible */
+            visibility: visible;
+            transition: opacity 0.3s ease;
+        }
+        .dropdown-toggle {
+            background: none;
+            padding-right: 0;
+        }
+        .dropdown-toggle::after {
+            content: none;
+        }
+
+    
+        .dropdown:hover .dropdown-toggle {
+            color: #e2e6ea; /* Change text color of the dropdown toggle on hover */
+        }
+        #icon{
+            width: 100px;
+            height: 100px;
+            margin-top: -20px;
+            margin-bottom: -10px;
+        }
+            .order-details-button {
+        padding: 10px 15px;
+        background-color: #ffc107; /* Yellow color */
+        color: white;
+        font-weight: bold;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+        text-decoration: none;
+    }
+
+    .order-details-button:hover {
+        background-color: #e0a800; /* Darker yellow on hover */
+    }
+    #cartlogo{
+        width: 50px;
+        margin-left: 50px;
+    }
+    </style>
+    
+</head>
+<body>
+    <nav>
+        <ul>
+            <!-- Left links -->
+            <li class="left-links">
+                <img src="{% static 'images/icon.png' %}" alt="" id="icon">
+                <a href="{% url 'home' %}">Home</a>
+                <a href="#about">About Us</a>
+                <div class="dropdown">
+                    <a href="#category" class="dropdown-toggle">Categories</a>
+                    <ul class="dropdown-menu">
+                        {% for category in categories %}
+                        <li>
+                            <a href="{% url 'product_detail' category.cat_id %}">{{ category.name }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <a href="{% url 'contact' %}">Contact Us</a>
+            </li>
+            
+            <!-- Right links -->
+            <li class="right-links">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'Cartapp:viewcart' %}">My Cart</a>
+                    <a href="{% url 'order_list' %}">My Orders</a>
+                    <a href="{% url 'profile' %}">Profile</a>
+                    <a href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                    <a href="{% url 'login' %}">Login</a>
+                    <a href="{% url 'Register' %}">Register</a>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
+    
+    
+    
+    
+
+    {% block content %}
+    {% endblock %}
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-about" id="about">
+                <h3>About Us</h3>
+                <p>At <b>Grocery Mart</b>, we’re dedicated to bringing you the freshest produce, quality pantry essentials, and sustainable products. Supporting local farmers and promoting healthy lifestyles is at the heart of what we do. Thank you for choosing us as your trusted grocery partner.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <p>Email: info@grocerystore.com</p>
+                <p>Phone: +1 (555) 123-4567</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Grocery Store. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
