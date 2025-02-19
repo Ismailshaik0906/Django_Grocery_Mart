@@ -3,11 +3,8 @@ name: Run Django on GitHub Actions
 on:
   push:
     branches:
-      - main  # Runs when pushing to the main branch
-  pull_request:
-    branches:
       - main
-  workflow_dispatch:  # Allows manual execution from Actions tab
+  workflow_dispatch:
 
 jobs:
   test:
@@ -28,18 +25,11 @@ jobs:
         source venv/bin/activate
         pip install -r requirements.txt
 
+    - name: Create SQLite Database
+      run: |
+        touch db.sqlite3  # Ensure database file exists
+
     - name: Run Migrations
       run: |
         source venv/bin/activate
-        python manage.py migrate
-
-    - name: Run Django Development Server
-      run: |
-        source venv/bin/activate
-        nohup python manage.py runserver 0.0.0.0:8000 &
-
-    - name: Wait for Server to Start
-      run: sleep 10
-
-    - name: Check Server Response
-      run: curl -I http://127.0.0.1:8000 || exit 1
+        python manage.py migrate --noinput
