@@ -1,0 +1,45 @@
+name: Run Django on GitHub Actions
+
+on:
+  push:
+    branches:
+      - main  # Runs when pushing to the main branch
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:  # Allows manual execution from Actions tab
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install Dependencies
+      run: |
+        python -m venv venv
+        source venv/bin/activate
+        pip install -r requirements.txt
+
+    - name: Run Migrations
+      run: |
+        source venv/bin/activate
+        python manage.py migrate
+
+    - name: Run Django Development Server
+      run: |
+        source venv/bin/activate
+        nohup python manage.py runserver 0.0.0.0:8000 &
+
+    - name: Wait for Server to Start
+      run: sleep 10
+
+    - name: Check Server Response
+      run: curl -I http://127.0.0.1:8000 || exit 1
