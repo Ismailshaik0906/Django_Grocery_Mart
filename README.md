@@ -1,4 +1,4 @@
-# Overview
+
 
 Django GroceryMart is a web application built using the Django framework that allows users to browse, add to cart, and order grocery items online. It provides an intuitive interface for both customers and administrators to manage products, orders, and user accounts.
 
