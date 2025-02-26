@@ -86,6 +86,9 @@
     .product-buttons .buy-now:hover {
         background-color: #d9a930;
     }
+        .product-link{
+        text-decoration: none;
+    }
 
     /* Animations */
     @keyframes fadeIn {
@@ -102,7 +105,7 @@
 
 <div>
     {% for i in data %}
-    <a href="{% url 'product_info' i.id %}"><div class="product-section">
+    <a href="{% url 'product_info' i.id %}" class="product-link"><div class="product-section">
         <div class="product-header">
             <img src="{{ i.images.url }}" alt="{{ i.name }}" />
             <div class="product-details">
